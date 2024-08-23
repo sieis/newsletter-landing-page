@@ -53,6 +53,48 @@ displayImage.addEventListener('click', function() {
     imageInput.click();
 });
 
+
+document.addEventListener('DOMContentLoaded', function() {
+    const bgColorPicker = document.getElementById('bgColorPicker');
+    const fontColorPicker = document.getElementById('fontColorPicker');
+
+    // Function to update page colors
+    function updateColors() {
+        document.body.style.backgroundColor = bgColorPicker.value;
+        document.body.style.color = fontColorPicker.value;
+    }
+
+    // Event listeners for color pickers
+    bgColorPicker.addEventListener('input', updateColors);
+    fontColorPicker.addEventListener('input', updateColors);
+
+    // Initial color set
+    updateColors();
+
+    // Optional: Save colors to localStorage
+    function saveColors() {
+        localStorage.setItem('bgColor', bgColorPicker.value);
+        localStorage.setItem('fontColor', fontColorPicker.value);
+    }
+
+    // Optional: Load colors from localStorage
+    function loadColors() {
+        const savedBgColor = localStorage.getItem('bgColor');
+        const savedFontColor = localStorage.getItem('fontColor');
+
+        if (savedBgColor) bgColorPicker.value = savedBgColor;
+        if (savedFontColor) fontColorPicker.value = savedFontColor;
+
+        updateColors();
+    }
+
+    bgColorPicker.addEventListener('change', saveColors);
+    fontColorPicker.addEventListener('change', saveColors);
+
+    // Load saved colors on page load
+    loadColors();
+});
+
 makeEditable(document.getElementById('heading'));
 makeEditable(document.getElementById('paragraph'));
 makeEditable(document.getElementById('paragraph2'));
